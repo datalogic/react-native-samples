@@ -720,10 +720,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@datalogic/react-native-datalogic-module@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@datalogic/react-native-datalogic-module/-/react-native-datalogic-module-0.1.10.tgz#a8a5c0bbefd720b6589c329e9029e344c614c14d"
-  integrity sha512-d+XT+eGKaPqJAsmjyJFEuOjorA7VrLB3P9i9en9cy20dfUTdT2nTuDGy+oBfXT9cWEIcGPtRmSYYh0fYgYgXbQ==
+"@datalogic/react-native-datalogic-module@latest":
+  version "0.1.22-alpha.0"
+  resolved "https://registry.yarnpkg.com/@datalogic/react-native-datalogic-module/-/react-native-datalogic-module-0.1.22-alpha.0.tgz#d6d68eecbab18fd34b576aad1a5027509f6d3076"
+  integrity sha512-8waVHbB5JUSmn3Bw1so5ouoVRGFzd0L4eOyFCrI6CLYBuGEfSyOlHK6h7/HHCaNg/15wxybFxuLX1TJNK9wstw==
   dependencies:
     JSONStream "^1.3.5"
     abab "^2.0.5"

@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@datalogic/react-native-datalogic-module": "^0.1.10",
+    "@datalogic/react-native-datalogic-module": "latest",
     "react": "16.13.1",
     "react-native": "0.63.3"
   },
