@@ -10,6 +10,3 @@ cd <sample-project>
 yarn
 yarn react-native run-android
 ```
-
-## Samples
-
