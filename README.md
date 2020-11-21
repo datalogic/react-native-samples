@@ -1,2 +1,2 @@
 # react-native-samples
-Samples for Datalogic React Native SDK
+Sample react native projects that use the Datalogic [react native module](https://github.com/datalogic/react-native-datalogic-module).  Documentation [available here](https://datalogic.github.io/reactnative/).
