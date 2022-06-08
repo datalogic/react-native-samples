@@ -27,7 +27,7 @@ const App: () => Node = () => {
   React.useEffect(() => {
     try {
       const eventEmitter = new NativeEventEmitter(BarcodeManager);
-      eventEmitter.addListener('successCallback', (map) => {
+      eventEmitter.addListener('successCallback', map => {
         Alert.alert('Barcode Result', map.barcodeData + '\n' + map.barcodeType);
       });
       BarcodeManager.addReadListener();
