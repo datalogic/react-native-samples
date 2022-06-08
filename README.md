@@ -8,5 +8,7 @@ Assuming you have properly set up your [React Native development environment](ht
 ```bash
 cd <sample-project>
 yarn
-yarn react-native run-android
+yarn react-native start
+<in a separate terminal>
+yarn android
 ```

@@ -7,70 +7,62 @@
  */
 
 import React from 'react';
+import type { Node } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
-  View,
-  Text,
   StatusBar,
+  StyleSheet,
+  Text,
+  View,
   Alert,
-  NativeEventEmitter
+  NativeEventEmitter,
 } from 'react-native';
 
-import {
-  Header,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
-import {
-  BarcodeManager
-} from '@datalogic/react-native-datalogic-module';
+import {BarcodeManager} from '@datalogic/react-native-datalogic-module';
 
-class App extends React.Component {
-  async componentDidMount() {
+const App: () => Node = () => {
+  React.useEffect(() => {
     try {
       const eventEmitter = new NativeEventEmitter(BarcodeManager);
       eventEmitter.addListener('successCallback', (map) => {
         Alert.alert('Barcode Result', map.barcodeData + '\n' + map.barcodeType);
       });
-      await BarcodeManager.addReadListener();
-    } catch(e) {
+      BarcodeManager.addReadListener();
+    } catch (e) {
       console.error(e);
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <Header />
-            {global.HermesInternal == null ? null : (
-              <View style={styles.engine}>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-              </View>
-            )}
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>DecodeListener:</Text>
-                <Text style={styles.sectionDescription}>
-                  Scan a <Text style={styles.highlight}>barcode</Text> to display an Alert
-                  box with the barcode data.
-                </Text>
-              </View>
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}>
+          <Header />
+          {global.HermesInternal == null ? null : (
+            <View style={styles.engine}>
+              <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
-}
+          )}
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>DecodeListener:</Text>
+              <Text style={styles.sectionDescription}>
+                Scan a <Text style={styles.highlight}>barcode</Text> to display an Alert
+                box with the barcode data.
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   scrollView: {
