@@ -19,9 +19,9 @@ import {
   NativeEventEmitter,
 } from 'react-native';
 
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
 
-import {BarcodeManager} from '@datalogic/react-native-datalogic-module';
+import { BarcodeManager } from '@datalogic/react-native-datalogic-module';
 
 const App: () => Node = () => {
   React.useEffect(() => {
@@ -53,8 +53,8 @@ const App: () => Node = () => {
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>DecodeListener:</Text>
               <Text style={styles.sectionDescription}>
-                Scan a <Text style={styles.highlight}>barcode</Text> to display an Alert
-                box with the barcode data.
+                Scan a <Text style={styles.highlight}>barcode</Text> to display
+                an Alert box with the barcode data.
               </Text>
             </View>
           </View>

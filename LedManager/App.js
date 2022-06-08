@@ -7,150 +7,145 @@
  */
 
 import React from 'react';
+import type { Node } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
-  View,
-  Text,
   StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  Button,
   Alert,
   NativeEventEmitter,
-  Button
 } from 'react-native';
 
-import {
-  Header,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {
   BarcodeManager,
-  LedManager
+  LedManager,
 } from '@datalogic/react-native-datalogic-module';
 
-
 const GrLedTrue = async () => {
-  var ledMap = { led: 'LED_GOOD_READ', enable: true };
+  var ledMap = {led: 'LED_GOOD_READ', enable: true};
   await LedManager.setLed(ledMap);
 };
 const GrLedFalse = async () => {
-  var ledMap = { led: 'LED_GOOD_READ', enable: false };
+  var ledMap = {led: 'LED_GOOD_READ', enable: false};
   await LedManager.setLed(ledMap);
 };
 const GsLedTrue = async () => {
-  var ledMap = { led: 'LED_GREEN_SPOT', enable: true };
+  var ledMap = {led: 'LED_GREEN_SPOT', enable: true};
   await LedManager.setLed(ledMap);
 };
 const GsLedFalse = async () => {
-  var ledMap = { led: 'LED_GREEN_SPOT', enable: false };
+  var ledMap = {led: 'LED_GREEN_SPOT', enable: false};
   await LedManager.setLed(ledMap);
 };
 const GenNoteTrue = async () => {
-  var ledMap = { led: 'LED_NOTIFICATION', enable: true };
+  var ledMap = {led: 'LED_NOTIFICATION', enable: true};
   await LedManager.setLed(ledMap);
 };
 const GenNoteFalse = async () => {
-  var ledMap = { led: 'LED_NOTIFICATION', enable: false };
+  var ledMap = {led: 'LED_NOTIFICATION', enable: false};
   await LedManager.setLed(ledMap);
 };
 
-class App extends React.Component {
-  async componentDidMount() {
+const App: () => Node = () => {
+  React.useEffect(() => {
     try {
       const eventEmitter = new NativeEventEmitter(BarcodeManager);
-      eventEmitter.addListener('successCallback', (map) => {
+      eventEmitter.addListener('successCallback', map => {
         Alert.alert('Barcode Result', map.barcodeData + '\n' + map.barcodeType);
       });
-      await BarcodeManager.addReadListener();
-    } catch(e) {
+      BarcodeManager.addReadListener();
+    } catch (e) {
       console.error(e);
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>LedManager:</Text>
-                <Text style={styles.sectionDescription}>
-                  This app demonstrates how to configure LED's <Text style={styles.highlight}>(Good Read LED, Green Spot LED, General Notification LED)
-                  </Text> on Datalogic devices.
-                </Text>
-                <Text style={styles.sectionTitle}>Good Read LED</Text>
-                <View style={{ flexDirection:"row" }}>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={GrLedTrue}
-                      title="True"
-                      color="#841584"
-                      accessibilityLabel="Good Read LED True"
-                    />
-                  </View>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={GrLedFalse}
-                      title="False"
-                      color="#841584"
-                      accessibilityLabel="Good Read LED False"
-                    />
-                  </View>
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}>
+
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>LedManager:</Text>
+              <Text style={styles.sectionDescription}>
+                This app demonstrates how to configure LED's{' '}
+                <Text style={styles.highlight}>
+                  (Good Read LED, Green Spot LED, General Notification LED)
+                </Text> on Datalogic devices.
+              </Text>
+              <Text style={styles.sectionTitle}>Good Read LED</Text>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={GrLedTrue}
+                    title="True"
+                    color="#841584"
+                    accessibilityLabel="Good Read LED True"
+                  />
                 </View>
-                <Text style={styles.sectionTitle}>Green Spot LED</Text>
-                <View style={{ flexDirection:"row" }}>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={GsLedTrue}
-                      title="True"
-                      color="#841584"
-                      accessibilityLabel="Green Spot LED True"
-                    />
-                  </View>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={GsLedFalse}
-                      title="False"
-                      color="#841584"
-                      accessibilityLabel="Green Spot LED False"
-                    />
-                  </View>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={GrLedFalse}
+                    title="False"
+                    color="#841584"
+                    accessibilityLabel="Good Read LED False"
+                  />
+                </View>
+              </View>
+              <Text style={styles.sectionTitle}>Green Spot LED</Text>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={GsLedTrue}
+                    title="True"
+                    color="#841584"
+                    accessibilityLabel="Green Spot LED True"
+                  />
+                </View>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={GsLedFalse}
+                    title="False"
+                    color="#841584"
+                    accessibilityLabel="Green Spot LED False"
+                  />
+                </View>
               </View>
               <Text style={styles.sectionTitle}>General Notification LED</Text>
-              <View style={{ flexDirection:"row" }}>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={GenNoteTrue}
-                      title="True"
-                      color="#841584"
-                      accessibilityLabel="General Notification LED True"
-                    />
-                  </View>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={GenNoteFalse}
-                      title="False"
-                      color="#841584"
-                      accessibilityLabel="General Notification LED False"
-                    />
-                  </View>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={GenNoteTrue}
+                    title="True"
+                    color="#841584"
+                    accessibilityLabel="General Notification LED True"
+                  />
+                </View>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={GenNoteFalse}
+                    title="False"
+                    color="#841584"
+                    accessibilityLabel="General Notification LED False"
+                  />
+                </View>
               </View>
+            </View>
           </View>
-        </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
-}
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   scrollView: {
