@@ -7,37 +7,34 @@
  */
 
 import React from 'react';
+import type { Node } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
-  View,
-  Text,
   StatusBar,
+  StyleSheet,
+  Text,
+  View,
   Alert,
+  Button,
   NativeEventEmitter,
-  Button
 } from 'react-native';
 
-import {
-  Header,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {
   BarcodeManager,
-  KeyboardManager
+  KeyboardManager,
 } from '@datalogic/react-native-datalogic-module';
-
 
 const getAllAvailableTriggers = async () => {
   try {
     var getTriggersReturn = await KeyboardManager.getAllAvailableTriggers();
     console.log(getTriggersReturn);
-    Alert.alert("Get Triggers Return", 
-      "Get Available Triggers Return: " + JSON.stringify(getTriggersReturn));
+    Alert.alert(
+      'Get Triggers Return',
+      'Get Available Triggers Return: ' + JSON.stringify(getTriggersReturn),
+    );
   } catch (e) {
     console.error(e);
   }
@@ -45,9 +42,7 @@ const getAllAvailableTriggers = async () => {
 
 const setAllAvailableTriggersTrue = async () => {
   try {
-    var setTriggersReturn = await KeyboardManager.setAllAvailableTriggers(
-      true
-    );
+    var setTriggersReturn = await KeyboardManager.setAllAvailableTriggers(true);
     console.log(setTriggersReturn);
   } catch (e) {
     console.error(e);
@@ -57,7 +52,7 @@ const setAllAvailableTriggersTrue = async () => {
 const setAllAvailableTriggersFalse = async () => {
   try {
     var setTriggersReturn = await KeyboardManager.setAllAvailableTriggers(
-      false
+      false,
     );
     console.log(setTriggersReturn);
   } catch (e) {
@@ -68,8 +63,8 @@ const setAllAvailableTriggersFalse = async () => {
 const setTriggers = async () => {
   try {
     var triggersArray = [
-      { enabled: false, id: 0, name: 'Left Trigger' },
-      { enabled: true, id: 1, name: 'Right Trigger' }
+      {enabled: false, id: 0, name: 'Left Trigger'},
+      {enabled: true, id: 1, name: 'Right Trigger'},
     ];
     var setTriggersReturn = await KeyboardManager.setTriggers(triggersArray);
     console.log(setTriggersReturn);
@@ -79,84 +74,83 @@ const setTriggers = async () => {
   }
 };
 
-class App extends React.Component {
-  async componentDidMount() {
+const App: () => Node = () => {
+  React.useEffect(() => {
     try {
       const eventEmitter = new NativeEventEmitter(BarcodeManager);
-      eventEmitter.addListener('successCallback', (map) => {
+      eventEmitter.addListener('successCallback', map => {
         Alert.alert('Barcode Result', map.barcodeData + '\n' + map.barcodeType);
       });
-      await BarcodeManager.addReadListener();
-    } catch(e) {
+      BarcodeManager.addReadListener();
+    } catch (e) {
       console.error(e);
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>LedManager:</Text>
-                <Text style={styles.sectionDescription}>
-                  This app demonstrates how to configure LED's <Text style={styles.highlight}>(Good Read LED, Green Spot LED, General Notification LED)
-                  </Text> on Datalogic devices.
-                </Text>
-                <Text style={styles.sectionTitle}>Get All Available Triggers</Text>
-                <View style={{ flexDirection:"row" }}>
-                  <View style={styles.app}>
-                    <Button
-                      onPress={getAllAvailableTriggers}
-                      title="Get Triggers"
-                      color="#841584"
-                      accessibilityLabel="Get All Available Triggers"
-                    />
-                  </View>
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}>
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>SetTriggers:</Text>
+              <Text style={styles.sectionDescription}>
+                This app demonstrates how to set and disable triggers on
+                Datalogic devices.
+              </Text>
+              <Text style={styles.sectionTitle}>
+                Get All Available Triggers
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.app}>
+                  <Button
+                    onPress={getAllAvailableTriggers}
+                    title="Get Triggers"
+                    color="#841584"
+                    accessibilityLabel="Get All Available Triggers"
+                  />
                 </View>
-                <Text style={styles.sectionTitle}>Set All Available Triggers</Text>
-                <View style={{ flexDirection:"row" }}>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={setAllAvailableTriggersTrue}
-                      title="True"
-                      color="#841584"
-                      accessibilityLabel="Set All Available Triggers True"
-                    />
-                  </View>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={setAllAvailableTriggersFalse}
-                      title="False"
-                      color="#841584"
-                      accessibilityLabel="Set All Available Triggers False"
-                    />
-                  </View>
+              </View>
+              <Text style={styles.sectionTitle}>Set All Available Triggers</Text>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={setAllAvailableTriggersTrue}
+                    title="True"
+                    color="#841584"
+                    accessibilityLabel="Set All Available Triggers True"
+                  />
+                </View>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={setAllAvailableTriggersFalse}
+                    title="False"
+                    color="#841584"
+                    accessibilityLabel="Set All Available Triggers False"
+                  />
+                </View>
               </View>
               <Text style={styles.sectionTitle}>Set Individual Triggers</Text>
-              <View style={{ flexDirection:"row" }}>
-                  <View style={styles.buttonStyle}>
-                    <Button
-                      onPress={setTriggers}
-                      title="Set Triggers"
-                      color="#841584"
-                      accessibilityLabel="Set Specific Triggers"
-                    />
-                  </View>
+              <View style={{flexDirection: 'row'}}>
+                <View style={styles.buttonStyle}>
+                  <Button
+                    onPress={setTriggers}
+                    title="Set Triggers"
+                    color="#841584"
+                    accessibilityLabel="Set Specific Triggers"
+                  />
+                </View>
               </View>
+            </View>
           </View>
-        </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
-}
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   scrollView: {
