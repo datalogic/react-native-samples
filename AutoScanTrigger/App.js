@@ -31,7 +31,7 @@ const isAvailable = async () => {
   try {
     let isAvailableReturn = await AutoScanTrigger.isAvailable();
     console.log('Is Available: ' + isAvailableReturn);
-    Alert.alert('Is Available: ' + isAvailableReturn);
+    Alert.alert('Is Available', JSON.stringify(isAvailableReturn));
     return isAvailableReturn;
   } catch (e) {
     console.error(e);
@@ -44,7 +44,7 @@ const getSupportedRanges = async () => {
     let supportedRangesReturn = await AutoScanTrigger.getSupportedRanges();
     console.log('Get Supported Ranges: ');
     console.log(supportedRangesReturn);
-    Alert.alert(JSON.stringify(supportedRangesReturn));
+    Alert.alert('Supported Ranges', JSON.stringify(supportedRangesReturn));
     return supportedRangesReturn;
   } catch (e) {
     console.error(e);
@@ -57,7 +57,7 @@ const getCurrentRange = async () => {
     let currentRangeReturn = await AutoScanTrigger.getCurrentRange();
     console.log('Get Current Range: ');
     console.log(currentRangeReturn);
-    Alert.alert(JSON.stringify(currentRangeReturn));
+    Alert.alert('Current Range', JSON.stringify(currentRangeReturn));
     return currentRangeReturn;
   } catch (e) {
     console.error(e);
@@ -69,7 +69,7 @@ const setCurrentRange = async () => {
   try {
     let setRangeReturn = await AutoScanTrigger.setCurrentRange(0);
     console.log('Set Current Range: ' + setRangeReturn + '\n');
-    Alert.alert('Set Current Range: ' + setRangeReturn + '\n');
+    Alert.alert('Set Current Range', JSON.stringify(setRangeReturn));
     return setRangeReturn;
   } catch (e) {
     console.error(e);
@@ -97,7 +97,6 @@ const App: () => Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>AutoScanTrigger:</Text>
