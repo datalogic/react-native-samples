@@ -19,21 +19,34 @@ import {
   NativeEventEmitter,
 } from 'react-native';
 
-import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
-import { BarcodeManager } from '@datalogic/react-native-datalogic-module';
+import {BarcodeManager} from '@datalogic/react-native-datalogic-module';
 
 const App: () => Node = () => {
+
   React.useEffect(() => {
+    let nativeListenerReturn = null;
     try {
       const eventEmitter = new NativeEventEmitter(BarcodeManager);
-      eventEmitter.addListener('successCallback', map => {
-        Alert.alert('Barcode Result', map.barcodeData + '\n' + map.barcodeType);
-      });
+      nativeListenerReturn = eventEmitter.addListener(
+        'successCallback',
+        map => {
+          Alert.alert(
+            'Barcode Result',
+            map.barcodeData + '\n' + map.barcodeType,
+          );
+        },
+      );
       BarcodeManager.addReadListener();
     } catch (e) {
       console.error(e);
     }
+
+    return () => {
+      nativeListenerReturn.remove();
+      BarcodeManager.release();
+    };
   }, []);
 
   return (
