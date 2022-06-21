@@ -764,10 +764,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@datalogic/react-native-datalogic-module@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@datalogic/react-native-datalogic-module/-/react-native-datalogic-module-2.0.2.tgz#3930bf344a2191cf24653c1219e60b357d0d1249"
-  integrity sha512-+W7mxBuuY5purt2daQUormLSOG5n6j2+uDRYqCN4JvoDltBLQnHvLIau6zeZUe4/UEAEXnGtU+FfXHK/42V46g==
+"@datalogic/react-native-datalogic-module@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@datalogic/react-native-datalogic-module/-/react-native-datalogic-module-2.0.3.tgz#bbbbc77c989f13e2805d7c8067de3dfa5210da37"
+  integrity sha512-OKoaQRF1+mg0UV3ofIOK8nx5hvWW7hx8jKsRlchyLZyx41b26XtyjIApgpeBhhQuMAiZzt+8m1dLR83KuvvFyA==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
